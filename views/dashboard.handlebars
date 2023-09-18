@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-auto">
+  <h2>Hi {{user}}! </h2>
+  </div>
+</div>
+<br>
+{{#if posts.length}}
+<div class="card flex-column">
+  {{#each posts as |post|}}
+  {{> dashboardDetail post}}
+  {{/each}}
+</div>
+{{/if}}
