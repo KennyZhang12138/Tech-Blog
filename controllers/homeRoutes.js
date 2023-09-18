@@ -1,20 +1,17 @@
-const router = require('express').Router();
-const { User } = require('../models');
-const withAuth = require('../utils/auth');
+const router = require("express").Router();
+const { User } = require("../models");
+const withAuth = require("../utils/auth");
 
-
-router.get('/', withAuth, async (req, res) => {
+router.get("/", withAuth, async (req, res) => {
   try {
-    const userData = await User.findAll({
-      attributes: { exclude: ['password'] },
-      order: [['name', 'ASC']],
+    const postData = await Post.findAll({
+      include: [User],
     });
 
-    const users = userData.map((project) => project.get({ plain: true }));
+    const posts = postData.map((post) => post.get({ plain: true }));
 
-    res.render('homepage', {
-      users,
-
+    res.render("homepage", {
+      posts,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -22,14 +19,47 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
-router.get('/login', (req, res) => {
+router.get("/post/:id", withAuth, async (req, res) => {
+  try {
+    const postData = await Post.findOne({
+      where: { id: req.params.id },
+      include: [
+        User,
+        {
+          model: Comment,
+          include: [User],
+        },
+      ],
+    });
 
+    if (postData) {
+      const post = postData.get({ plain: true });
+
+      console.log(post);
+      res.render("one-post", { post, loggedIn: req.session.loggedIn });
+    } else {
+      res.status(404).end();
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get("/login", (req, res) => {
   if (req.session.logged_in) {
-    res.redirect('/');
+    res.redirect("/");
+    return;
+  }
+  res.render("login");
+});
+
+router.get("/signup", (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect("/");
     return;
   }
 
-  res.render('login');
+  res.render("signup");
 });
 
 module.exports = router;
