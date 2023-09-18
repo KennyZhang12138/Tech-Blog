@@ -65,6 +65,7 @@ THEN I am able to view posts and comments but I am prompted to log in again befo
 
 ![](./img/ex1.png)
 ![](./img/ex2.png)
+![](./img/ex3.png)
 
 
 ## Contributors
@@ -73,7 +74,7 @@ THEN I am able to view posts and comments but I am prompted to log in again befo
 
 ## Deploy
 
-Website: [Tech-Blog]()
+Website: [Tech-Blog](https://tech-blog-kenny-d37bc065f6ce.herokuapp.com/)
 
 ## Questions
 
