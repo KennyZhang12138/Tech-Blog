@@ -1,4 +1,4 @@
-const newFormHandler = async function(event) {
+const newPostFormHandler = async function(event) {
   event.preventDefault();
 
   const postTitle = document.querySelector('input[name="post-title"]').value;
@@ -19,6 +19,4 @@ const newFormHandler = async function(event) {
   document.location.replace('/dashboard');
 };
 
-document
-  .querySelector('#new-post-form')
-  .addEventListener('submit', newFormHandler);
+document.querySelector("#new-post-form").addEventListener("submit", newPostFormHandler);

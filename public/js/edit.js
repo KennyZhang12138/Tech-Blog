@@ -1,47 +1,37 @@
 const postId = document.querySelector('input[name="post-id"]').value;
-console.log("testing");
-console.log(postId);
 
-const editFormHandler = async (event) => {
+const editHandler = async (event) => {
   event.preventDefault();
 
   const postTitle = document.querySelector('input[name="post-title"]').value;
   const postContent = document.querySelector('textarea[name="post-body"]').value;
 
-  console.log(postTitle);
-  console.log(postContent);
-
   const response = await fetch(`/api/post/${postId}`, {
-    method: 'PUT',
+    method: "PUT",
     body: JSON.stringify({
       postTitle,
       postContent,
     }),
     headers: {
-      'Content-Type': 'application/json'
-    }
+      "Content-Type": "application/json",
+    },
   });
 
-  console.log(response);
   if (response.ok) {
-    document.location.replace('/dashboard');
+    document.location.replace("/dashboard");
   } else {
-    alert('Failed to update your post');
+    alert("Failed to update your post");
   }
-  document.location.replace('/dashboard');
+  document.location.replace("/dashboard");
 };
 
-const deleteClickHandler = async () => {
+const deleteHandler = async () => {
   await fetch(`/api/post/${postId}`, {
-    method: 'DELETE'
+    method: "DELETE",
   });
 
-  document.location.replace('/dashboard');
+  document.location.replace("/dashboard");
 };
 
-document
-  .querySelector('#edit-post-form')
-  .addEventListener('submit', editFormHandler);
-document
-  .querySelector('#delete-btn')
-  .addEventListener('click', deleteClickHandler);
+document.querySelector('#edit-post-form').addEventListener('submit', editHandler);
+document.querySelector('#delete-btn').addEventListener('click', deleteHandler);

@@ -12,7 +12,6 @@ router.get('/', withAuth, async (req, res) => {
     });
     
     const posts = postData.map((post) => post.get({ plain: true }));
-console.log(posts);
     
     res.render("dashboard", {
       layout: "dashboard",
@@ -26,14 +25,11 @@ console.log(posts);
 });
 
 
-router.get('/new', withAuth, (req, res) => {
-  
-  res.render('new-post', {
-    
-    layout: 'dashboard',
+router.get("/newPost", withAuth, (req, res) => {
+  res.render("new-post", {
+    layout: "dashboard",
   });
 });
-
 
 router.get('/edit/:id', withAuth, async (req, res) => {
   try {
